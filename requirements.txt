@@ -1,0 +1,8 @@
+unittest2
+mock
+python-faker
+jinja2
+https://github.com/pbh/hey_dl/zipball/master
+https://github.com/pbh/hey_rexec/zipball/master
+https://github.com/pbh/hey_pgsqlexec/zipball/master
+https://github.com/pbh/hey_april/zipball/master
