@@ -4,6 +4,16 @@ import hey_dl
 import re
 import os
 
+class HookTester(object):
+    def __init__(self):
+        self.called = False
+
+    def __call__(self, runner):
+        self.called = True
+
+    def was_called(self):
+        return self.called
+
 
 class PybridTestCase(unittest2.TestCase):
     def setUp(self):
@@ -17,6 +27,7 @@ class PybridTestCase(unittest2.TestCase):
     
     def fixture_dir(self, d):
         return self._dl.path('fixtures/%s' % d)
+
 
 class LoaderTestCase(PybridTestCase):
     def test_flat_load(self):
@@ -102,7 +113,7 @@ class RunnerTestCase(PybridTestCase):
     def test_run_report_naming(self):
         self._new_output_dir()
         out_dir = self._get_output_dir()
-        r = pybrid.run(self.fixture_dir('test_run_report_naming'), out_dir, 
+        pybrid.run(self.fixture_dir('test_run_report_naming'), out_dir, 
                        report_dir_mapping=pybrid.author_name_report_dir_mapping)
 
         self.assertTrue(
@@ -111,3 +122,74 @@ class RunnerTestCase(PybridTestCase):
                 self._get_output_text(
                     os.path.join(out_dir, 'cedrickschmitt_armstrongreport',
                                  'index.html'))))
+
+    def test_output_dirs(self):
+        self._new_output_dir()
+        out_dir = self._get_output_dir()
+        r = pybrid.run(self.fixture_dir('test_output_dirs'), out_dir,
+                       report_dir_mapping=pybrid.author_name_report_dir_mapping)
+
+        o_dirs = r.get_report_output_dirs()
+
+        expected_report_names = ['janicebarrows_ortizrutherfordreport',
+                                 'mafaldamayer_bergnaumreport',
+                                 'hebercassin_steuberreport']
+
+        self.assertEqual(
+            len([o_dir for o_dir in o_dirs if out_dir in o_dir]), 3) # 3 reports
+
+        for er_name in expected_report_names:
+            self.assertEqual(
+                len([o_dir for o_dir in o_dirs if er_name in o_dir]), 1)
+        
+    def test_pre_hooks(self):
+        uncalled_tester = HookTester()
+        called_tester = HookTester()
+
+        self.assertFalse(uncalled_tester.was_called())
+        self.assertFalse(called_tester.was_called())
+
+        self._new_output_dir()
+        out_dir = self._get_output_dir()
+        pybrid.run(self.fixture_dir('test_pre_hooks'), out_dir,
+                   pre_hooks = [called_tester])
+
+        self.assertTrue(called_tester.was_called())
+        self.assertFalse(uncalled_tester.was_called())
+
+    def test_post_hooks(self):
+        called_tester1 = HookTester()
+        called_tester2 = HookTester()
+
+        self.assertFalse(called_tester1.was_called())
+        self.assertFalse(called_tester2.was_called())
+
+        self._new_output_dir()
+        out_dir = self._get_output_dir()
+        pybrid.run(self.fixture_dir('test_post_hooks'), out_dir,
+                   post_hooks = [called_tester1, called_tester2])
+
+        self.assertTrue(called_tester1.was_called())
+        self.assertTrue(called_tester2.was_called())
+
+
+    def test_author_filter(self):
+        self._new_output_dir()
+        out_dir = self._get_output_dir()
+        r = pybrid.run(
+            self.fixture_dir('test_author_filter'), out_dir,
+            report_filters=[
+                pybrid.filters.AuthorFilter('reggiemorissette')])
+
+        self.assertEqual(len(r.get_report_output_dirs()), 2)
+
+    def test_write_string(self):
+        self._new_output_dir()
+        out_dir = self._get_output_dir()
+        r = pybrid.run(self.fixture_dir('test_write_string'), out_dir)
+
+        self.assertTrue(
+            re.search(
+                'quia officia aut',
+                self._get_output_text(
+                    os.path.join(r.get_report_output_dirs()[0], 'index.html'))))

@@ -82,4 +82,6 @@ class ReportRunner(object):
         return copy.deepcopy(self.report_metadata)
 
     def get_report_output_dirs(self):
-        return [r['output_dir'] for r in self.report_metadata]
+        return [r['output_dir']
+                for r in self.report_metadata
+                if r.has_key('output_dir')]

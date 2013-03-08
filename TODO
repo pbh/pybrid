@@ -3,11 +3,11 @@
 
   - [X] test dir generator
   - [X] proper out dir names
-  - [ ] proper get_output_dirs
-  - [ ] pre hooks test
-  - [ ] filter hooks test
-  - [ ] post hooks test
-  - [ ] write_string
+  - [X] proper get_output_dirs
+  - [X] pre hooks test
+  - [X] filter hooks test
+  - [X] post hooks test
+  - [X] write_string
   - [ ] author/name/groups availability
 
 * Possible Tests
@@ -51,6 +51,12 @@
    - [ ] pgsqlexec_setup
    - [ ] index html generate hook
    - [ ] execute_cmd_with_index_html (append last for execute)
+
+** pybrid.filters
+
+   - [X] AuthorFilter
+   - [ ] NameFilter
+   - [ ] GroupFilter
    
 ** pybrid.main
 
