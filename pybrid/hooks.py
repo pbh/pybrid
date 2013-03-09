@@ -13,8 +13,16 @@
 import os
 
 class AprilCopyHook(object):
+    DEFAULT_ASSET_DIR_NAME = 'april_assets'
+
     def __init__(self, april_asset_dir_name=None):
+        import hey_april
+        if april_asset_dir_name is None:
+            april_asset_dir_name = self.DEFAULT_ASSET_DIR_NAME
+
         self.april_asset_dir_name = april_asset_dir_name
+        hey_april.set_default_asset_prefix(
+            os.path.join('..', april_asset_dir_name))
 
     def __call__(self, runner):
         import hey_april
