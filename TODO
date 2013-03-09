@@ -50,7 +50,7 @@
 ** pybrid.filters
 
    - [X] AuthorFilter
-   - [ ] NameFilter
+   - [X] NameFilter
    - [ ] GroupFilter
    
 ** pybrid.main

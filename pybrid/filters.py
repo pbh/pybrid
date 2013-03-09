@@ -20,3 +20,14 @@ class AuthorFilter(object):
             
             if inst.get_author() == self.author_name:
                 yield cls
+
+class NameFilter(object):
+    def __init__(self, name):
+        self.name = name
+
+    def __call__(self, report_cls_list):
+        for cls in report_cls_list:
+            inst = cls()
+            
+            if inst.get_name() == self.name:
+                yield cls
