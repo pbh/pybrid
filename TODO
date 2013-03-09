@@ -55,17 +55,14 @@
    
 ** pybrid.main
 
-   argparse params:
-   - output_dir
-   - generate
-   - executable
-   - author
-   - name glob
-   - group
-
-   loader
-   runner: mkdirs / run reports
-   execute
+   optparse params:
+   - [X] output_dir
+   - [X] generate
+   - [X] executable
+   - [X] author
+   - [X] name
+   - [X] group
+   - [X] list reports
 
 ** pybridfile.py
 
@@ -74,7 +71,8 @@
 
    hey_pgsqlexec.PGSQLExec.set_default_connection('odw=...')
    
-   pybrid.main(pre_hooks=[],
+   pybrid.main('.', 
+               pre_hooks=[],
                post_hooks=[
                  pybrid.hooks.AprilCopyHook(),
                  pybrid.IndexHtmlGeneratorHook(),
@@ -92,5 +90,5 @@
 ** possible
 
    - [X] allow output dir name to be configurable
-   - [ ] initial sql loader for default sql
+   - [X] initial sql loader for default sql
 
