@@ -13,6 +13,8 @@
 import pybrid
 import optparse
 import sys
+import datetime
+import os
 
 def run(top_level_dir, *args, **kwargs):
     found_reports = pybrid.defaultReportLoader.discover(top_level_dir)
@@ -38,6 +40,9 @@ def main(top_level_dir, *args, **kwargs):
     parser.add_option("-e", "--executable",
                       help="execute command CMD with report HTML index",
                       metavar="CMD", dest='executable')
+    parser.add_option('--reports-in-timestamp-dir',
+                      action="store_true", dest="timestamp_dir", default=False,
+                      help="put reports in timestamp rather than base dir")
 
     # filters
     parser.add_option("-g", "--group",
@@ -104,9 +109,16 @@ def main(top_level_dir, *args, **kwargs):
                 pybrid.hooks.ExecuteCommandOnIndexHook(options.executable)
                 )
         
+        modified_output_dir = options.output_dir
+
+        if options.timestamp_dir:
+            modified_output_dir = os.path.join(
+                options.output_dir, 
+                datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
+
         found_reports = pybrid.defaultReportLoader.discover(top_level_dir)
         r = pybrid.ReportRunner(
-            found_reports, options.output_dir, *args, **kwargs)
+            found_reports, modified_output_dir, *args, **kwargs)
         r.run()
         
         return r

@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pybrid',
-    version='1.0.2',
+    version='1.0.3',
     author='Paul Heymann',
     author_email='pybrid@heymann.be',
     packages=['pybrid', ],
