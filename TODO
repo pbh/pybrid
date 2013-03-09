@@ -44,8 +44,8 @@
 ** pybrid.hooks (separate module)
 
    - [X] april_copy
-   - [ ] index html generate hook
-   - [ ] execute_cmd_with_index_html (append last for execute)
+   - [X] index html generate hook
+   - [X] execute_cmd_with_index_html (append last for execute)
 
 ** pybrid.filters
 
@@ -75,7 +75,10 @@
    hey_pgsqlexec.PGSQLExec.set_default_connection('odw=...')
    
    pybrid.main(pre_hooks=[],
-               post_hooks=[pybrid.hooks.AprilCopyHook(),]
+               post_hooks=[
+                 pybrid.hooks.AprilCopyHook(),
+                 pybrid.IndexHtmlGeneratorHook(),
+               ]
 
 ** other changes
 

@@ -207,3 +207,19 @@ class RunnerTestCase(PybridTestCase):
                     )
                 )
             )
+
+    def test_index_html_hook(self):
+        self._new_output_dir()
+        out_dir = self._get_output_dir()
+        pybrid.run(self.fixture_dir('test_index_html_hook'), out_dir,
+                   post_hooks = [pybrid.hooks.IndexHtmlGeneratorHook()],
+                   report_dir_mapping=pybrid.author_name_report_dir_mapping)
+
+        self.assertTrue(
+            'lilianaweimann_jonesreport/index.html' in file(
+                os.path.join(
+                    out_dir, 'index.html'
+                    )
+                ).read()
+            )
+
