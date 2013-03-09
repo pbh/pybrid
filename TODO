@@ -75,7 +75,7 @@
                pre_hooks=[],
                post_hooks=[
                  pybrid.hooks.AprilCopyHook(),
-                 pybrid.IndexHtmlGeneratorHook(),
+                 pybrid.hooks.IndexHtmlGeneratorHook(),
                ]
 
 ** other changes
