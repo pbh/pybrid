@@ -193,3 +193,17 @@ class RunnerTestCase(PybridTestCase):
                 'quia officia aut',
                 self._get_output_text(
                     os.path.join(r.get_report_output_dirs()[0], 'index.html'))))
+
+    def test_april_copy(self):
+        self._new_output_dir()
+        out_dir = self._get_output_dir()
+        pybrid.run(self.fixture_dir('test_april_copy'), out_dir,
+                   post_hooks = [pybrid.hooks.AprilCopyHook()])
+
+        self.assertTrue(
+            os.path.isdir(
+                os.path.join(
+                    out_dir, 'april_assets'
+                    )
+                )
+            )

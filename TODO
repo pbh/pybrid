@@ -8,12 +8,8 @@
   - [X] filter hooks test
   - [X] post hooks test
   - [X] write_string
-  - [ ] author/name/groups availability
-
-* Possible Tests
-
-  - [ ] april copy test
-  - [ ] pgsqlexec setup test
+  - [X] author/name/groups availability
+  - [X] april copy test
     
 * Structure
 
@@ -29,26 +25,25 @@
 
 ** pybrid.runner
 
-   - [ ] __init__(reports, out_dir, pre_hooks, filters, post-hooks)
-   - [ ] run()
-   - [ ] get_report_metadata()
-   - [ ] get_output_dirs()
-   - [ ] pre-hooks
-   - [ ] filter reports
-   - [ ] mkdirs / run reports
-   - [ ] post-hooks
+   - [X] __init__(reports, out_dir, pre_hooks, filters, post-hooks)
+   - [X] run()
+   - [X] get_report_metadata()
+   - [X] get_output_dirs()
+   - [X] pre-hooks
+   - [X] filter reports
+   - [X] mkdirs / run reports
+   - [X] post-hooks
 
 ** pybrid.pybridreport
 
    - [X] PybridReport
    - [X] PybridReport.write(output_dir)
-   - [ ] PybridReport.write_string(output_dir) (with hasattr)
-   - [ ] PyBridReport.{AUTHOR|NAME|GROUPS}
+   - [X] PybridReport.write_string(output_dir) (with hasattr)
+   - [X] PyBridReport.{AUTHOR|NAME|GROUPS}
 
 ** pybrid.hooks (separate module)
 
-   - [ ] april_copy
-   - [ ] pgsqlexec_setup
+   - [X] april_copy
    - [ ] index html generate hook
    - [ ] execute_cmd_with_index_html (append last for execute)
 
@@ -75,15 +70,18 @@
 ** pybridfile.py
 
    import pybrid
+   import hey_pgsqlexec
 
-   pybrid.main(pre_hooks=[pybrid.hooks.pgsqlexec_setup(conf),]
-               post_hooks=[pybrid.hooks.april_copy,]
+   hey_pgsqlexec.PGSQLExec.set_default_connection('odw=...')
+   
+   pybrid.main(pre_hooks=[],
+               post_hooks=[pybrid.hooks.AprilCopyHook(),]
 
 ** other changes
 
-   - [ ] hey_april: set default asset dir option
-   - [ ] hey_pgsqlexec: set default conn
-   - [ ] hey_pgsqlexec: get cur/singleton (reset/renew=False)
+   - [X] hey_april: set default asset dir option
+   - [X] hey_pgsqlexec: set default conn
+   - [X] hey_pgsqlexec: get cur/singleton (reset/renew=False)
    - [X] handle broken report import case
    - [ ] sphinx documentation
    - [ ] docstring documentation

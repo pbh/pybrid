@@ -49,6 +49,9 @@ class ReportRunner(object):
         self.report_metadata = [
             {'class': cls, 'instance': cls()} for cls in self.report_cls_lst]
 
+    def get_output_dir(self):
+        return self.output_dir
+
     def _get_report_metadata(self, cls):
         l = [m for m in self.report_metadata if m['class'] == cls]
         if len(l) != 1:
@@ -70,6 +73,10 @@ class ReportRunner(object):
             m['output_dir'] = os.path.join(
                 self.output_dir,
                 self.report_dir_mapping_fn(m['instance']))
+          
+            m['author'] = m['instance'].get_author()
+            m['name'] = m['instance'].get_name()
+            m['groups'] = m['instance'].get_groups()
 
             os.makedirs(m['output_dir'])
             m['instance'].write(m['output_dir'])
