@@ -51,7 +51,7 @@
 
    - [X] AuthorFilter
    - [X] NameFilter
-   - [ ] GroupFilter
+   - [X] GroupFilter
    
 ** pybrid.main
 

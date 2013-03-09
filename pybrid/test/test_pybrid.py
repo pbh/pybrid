@@ -193,6 +193,16 @@ class RunnerTestCase(PybridTestCase):
 
         self.assertEqual(len(r.get_report_output_dirs()), 1)
 
+    def test_group_filter(self):
+        self._new_output_dir()
+        out_dir = self._get_output_dir()
+        r = pybrid.run(
+            self.fixture_dir('test_group_filter'), out_dir,
+            report_filters=[
+                pybrid.filters.GroupFilter(['group1', 'group2'])])
+
+        self.assertEqual(len(r.get_report_output_dirs()), 3)
+
     def test_write_string(self):
         self._new_output_dir()
         out_dir = self._get_output_dir()

@@ -31,3 +31,15 @@ class NameFilter(object):
             
             if inst.get_name() == self.name:
                 yield cls
+
+class GroupFilter(object):
+    def __init__(self, groups):
+        self.groups = groups
+
+    def __call__(self, report_cls_list):
+        for cls in report_cls_list:
+            inst = cls()
+            
+            if len(set(inst.get_groups()) & set(self.groups)) > 0:
+                yield cls
+
