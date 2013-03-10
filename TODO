@@ -85,11 +85,12 @@
    - [X] hey_pgsqlexec: get cur/singleton (reset/renew=False)
    - [X] handle broken report import case
    - [ ] sphinx documentation
-   - [ ] docstring documentation
-   - [ ] pypi
+   - [X] docstring documentation
+   - [X] pypi
+   - [ ] fix pypi documentation issues
+   - [ ] fix pypi categories
 
 ** possible
 
    - [X] allow output dir name to be configurable
    - [X] initial sql loader for default sql
-
