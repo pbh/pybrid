@@ -6,10 +6,10 @@ __doc__
 -------
 Various methods and objects are available at the top level:
 
-run() --- run reports with a ReportRunner.
-main() --- run reports with user specified CLI options.
-hooks.* --- pre- and post- hooks for modifying runner.
-filters.* --- filters for limiting reports generated.
+* run() --- run reports with a ReportRunner.
+* main() --- run reports with user specified CLI options.
+* hooks.* --- pre- and post- hooks for modifying runner.
+* filters.* --- filters for limiting reports generated.
 
 Pybrid is meant to be used with other packages, like:
     
