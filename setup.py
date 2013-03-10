@@ -7,6 +7,6 @@ setup(
     author_email='pybrid@heymann.be',
     packages=['pybrid', ],
     license='LICENSE.txt',
-    description='Pybrid',
+    description='A Simple Python/R/SQL Hybrid Reporting Framework',
     long_description=open('README.rst').read()
 )

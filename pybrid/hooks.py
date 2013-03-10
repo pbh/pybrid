@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
 """
-    hey_SKEL.SKEL
+    pybrid.hooks
     ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    This module is a collection of pre- and post-hooks for Pybrid.Runner.
 
-    SKEL
+    Hooks are one of the main way of extending Pybrid, they allow you to
+    cause activity before or after the Pybrid.Runner object runs.
 
     :copyright: (c) 2013 by oDesk Corporation.
     :license: BSD, see LICENSE for more details.
@@ -13,6 +15,15 @@
 import os
 
 class AprilCopyHook(object):
+    """
+    A hook for using hey_april with Pybrid.
+
+    This callable is used as an post_hook, so that it can copy_assets
+    after everything has been run.  However, it also does some
+    initial setup when it is created, so that hey_april calls within
+    reports function correctly.
+    """
+
     DEFAULT_ASSET_DIR_NAME = 'april_assets'
 
     def __init__(self, april_asset_dir_name=None):
@@ -33,6 +44,8 @@ class AprilCopyHook(object):
 
 
 class IndexHtmlGeneratorHook(object):
+    'A hook for generating an index for all reports after creating them.'
+
     INDEX_HTML_HEADER = """
 <html>
 <head><title>Pybrid Index</title></head>
@@ -63,6 +76,8 @@ class IndexHtmlGeneratorHook(object):
 
 
 class ExecuteCommandOnIndexHook(object):
+    'Run a command on {output_dir}/index.html --- used as post_hook.'
+    
     def __init__(self, cmd):
         self.cmd = cmd
 

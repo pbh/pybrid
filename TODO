@@ -86,6 +86,7 @@
    - [X] handle broken report import case
    - [ ] sphinx documentation
    - [ ] docstring documentation
+   - [ ] pypi
 
 ** possible
 

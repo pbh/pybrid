@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 
 """
-    hey_SKEL.SKEL
+    pybrid.runner
     ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    SKEL
+    The home of ReportRunner, a class for generating reports.
 
     :copyright: (c) 2013 by oDesk Corporation.
     :license: BSD, see LICENSE for more details.
@@ -14,14 +13,35 @@ import copy
 import os
 
 def author_name_report_dir_mapping(report_instance):
+    'Map from report classes to directory names as {author}_{report}.'
     return '%s_%s' % (report_instance.get_author(),
                       report_instance.get_name())
 
 
 class ReportRunner(object):
+    
+    """
+    A class for generating reports by running PybridReport classes.
+
+    get_output_dir() --- the directory reports will be output to.
+    run() --- execute the report generation.
+    get_report_output_dirs() --- get the dirs where reports were output to.
+    get_report_metadata() --- get data about report running (best to avoid).
+    """
+    
     def __init__(self, report_cls_lst, output_dir,
                  pre_hooks=None, report_filters=None, post_hooks=None,
                  report_dir_mapping=None):
+        """
+        Create a new ReportRunner.
+
+        report_cls_list --- a list of PybridReports (usually from ReportLoader).
+        output_dir --- directory to output reports to.
+        pre_hooks --- list of callables to run before reports.
+        report_filters --- list of callables that filter reports.
+        post_hooks --- list of callables that run after reports.
+        report_dir_mapping --- a mapping from reports to output directory names.
+        """
         self.report_cls_lst = report_cls_lst
 
         self.output_dir = output_dir
@@ -50,6 +70,7 @@ class ReportRunner(object):
             {'class': cls, 'instance': cls()} for cls in self.report_cls_lst]
 
     def get_output_dir(self):
+        'Return path to report output directory.'
         return self.output_dir
 
     def _get_report_metadata(self, cls):
@@ -61,6 +82,7 @@ class ReportRunner(object):
         return l[0]
 
     def run(self):
+        'Execute PybridReports, generating reports in output directory.'
         for pre_hook in self.pre_hooks:
             pre_hook(self)
 
@@ -86,9 +108,11 @@ class ReportRunner(object):
             post_hook(self)
 
     def get_report_metadata(self):
+        'Get internal report metadata information.'
         return copy.deepcopy(self.report_metadata)
 
     def get_report_output_dirs(self):
+        'Get directories (within output_dir) where reports sent output.'
         return [r['output_dir']
                 for r in self.report_metadata
                 if r.has_key('output_dir')]

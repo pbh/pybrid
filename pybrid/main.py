@@ -1,10 +1,15 @@
 #!/usr/bin/env python
 
 """
-    hey_SKEL.SKEL
+    pybrid.main
     ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Top level pybrid methods for initiating runs.
 
-    SKEL
+    Pybrid is usually run in one of two ways.  If you are running pybrid
+    automatically, pybrid.run() is a simple interface to generating
+    reports.  If you are running pybrid from the command line,
+    pybrid.main() will parse command line options and then run the
+    appropriate pybrid functions.
 
     :copyright: (c) 2013 by oDesk Corporation.
     :license: BSD, see LICENSE for more details.
@@ -17,6 +22,7 @@ import datetime
 import os
 
 def run(top_level_dir, *args, **kwargs):
+    'Discover reports in top_level_dir and then run ReportRunner.'
     found_reports = pybrid.defaultReportLoader.discover(top_level_dir)
     r = pybrid.ReportRunner(found_reports, *args, **kwargs)
     r.run()
@@ -24,6 +30,7 @@ def run(top_level_dir, *args, **kwargs):
     return r
 
 def main(top_level_dir, *args, **kwargs):
+    'Parse command line options, discover, and run ReportRunner.'
     parser = optparse.OptionParser()
 
     # actions:

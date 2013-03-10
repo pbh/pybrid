@@ -1,10 +1,16 @@
 #!/usr/bin/env python
 
 """
-    hey_SKEL.SKEL
+    pybrid.loader
     ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ReportLoader lives here --- a class for loading reports dynamically.
 
-    SKEL
+    ReportLoader loads files in a particular directory that have *_report.py
+    in their filename.
+
+    Most of this module is derived from Michael Foord's unittest2, which I
+    believe is in turn derived from the new unittest in the Python standard
+    library.
 
     :copyright: (c) 2013 by Michael Foord and oDesk Corporation
     :license: BSD, see LICENSE for more details.
@@ -23,20 +29,21 @@ def _splitext_first(path):
     return os.path.splitext(path)[0]
 
 class ReportLoader(object):
+    """
+    ReportLoader loads report.py files dynamically.
 
-    # """
-    # This class is responsible for loading tests according to various criteria
-    # and returning them wrapped in a TestSuite
-    # """
-
+    It is derived from unittest2's TestLoader and has more advanced
+    functionality as a result.
+    """
     def __init__(self):
         self.reset()
 
     def reset(self):
+        'Reset the top level dir, used for testing.'
         self._top_level_dir = None
 
     def loadReportsFromModule(self, module, use_load_tests=True):
-        # """Return a suite of all tests cases contained in the given module"""
+        "Return all reports contained in the given module."
         reports = []
 
         for name in dir(module):
@@ -47,26 +54,16 @@ class ReportLoader(object):
         return reports
 
     def discover(self, start_dir, pattern='*report.py', top_level_dir=None):
-        # """Find and return all test modules from the specified start
-        # directory, recursing into subdirectories to find them and return all
-        # tests found within them. Only test files that match the pattern will
-        # be loaded. (Using shell style pattern matching.)
+        """
+        Find and return all report modules from the specified start
+        directory, recursing into subdirectories to find them and return all
+        tests found within them. Only report files that match the pattern will
+        be loaded. (Using shell style pattern matching.)
 
-        # All test modules must be importable from the top level of the project.
-        # If the start directory is not the top level directory then the top
-        # level directory must be specified separately.
-
-        # If a test package name (directory with '__init__.py') matches the
-        # pattern then the package will be checked for a 'load_tests' function. If
-        # this exists then it will be called with loader, tests, pattern.
-
-        # If load_tests exists then discovery does  *not* recurse into the package,
-        # load_tests is responsible for loading all tests in the package.
-
-        # The pattern is deliberately not stored as a loader attribute so that
-        # packages can continue discovery themselves. top_level_dir is stored so
-        # load_tests does not need to pass this argument in to loader.discover().
-        # """
+        All report modules must be importable from the top level of the project.
+        If the report directory is not the top level directory then the top
+        level directory must be specified separately.
+        """
         set_implicit_top = False
         if top_level_dir is None and self._top_level_dir is not None:
             # make top_level_dir optional if called from load_tests in a package

@@ -1,5 +1,24 @@
 #!/usr/bin/env python
 
+"""
+test_maker helps create test fixtures for testing Pybrid.
+
+You run test_maker like so:
+
+python bin/test_maker.py pybrid/test/fixtures/test_name_filter \
+       p1/p2/r1 p1/p2/r2 p1/p3/r3 p1/p3/r4
+
+... and you get a group of reports and packages under the directory
+pybrid/test/fixtures/test_name_filter.
+
+Each p{number} represents a package, which will receive a random
+name and an __init__.py, and each r{number} represents a Pybrid
+report, which will have a random author, name, and other details.
+
+(Normal users shouldn't care about this binary, it is for development
+usage.)
+"""
+
 import faker
 import sys
 import re
