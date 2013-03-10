@@ -84,10 +84,9 @@
    - [X] hey_pgsqlexec: set default conn
    - [X] hey_pgsqlexec: get cur/singleton (reset/renew=False)
    - [X] handle broken report import case
-   - [ ] sphinx documentation
    - [X] docstring documentation
    - [X] pypi
-   - [ ] fix pypi documentation issues
+   - [X] fix pypi documentation issues
    - [ ] fix pypi categories
 
 ** possible
