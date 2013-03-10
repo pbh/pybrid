@@ -5,6 +5,7 @@ setup(
     version='1.0.3',
     author='Paul Heymann',
     author_email='pybrid@heymann.be',
+    url='http://www.pybrid.com/',
     packages=['pybrid', ],
     license='LICENSE.txt',
     description='A Simple Python/R/SQL Hybrid Reporting Framework',
